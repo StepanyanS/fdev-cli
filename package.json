@@ -1,0 +1,24 @@
+{
+  "name": "fdev-cli",
+  "version": "1.0.2",
+  "description": "The CLI for Default project",
+  "main": "cli.js",
+  "bin": {
+    "fdev": "./cli.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "CLI",
+    "Node",
+    "Generate",
+    "Component"
+  ],
+  "author": "S. Stepanyan",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^2.4.1",
+    "figlet": "^1.2.0"
+  }
+}
