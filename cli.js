@@ -16,5 +16,5 @@ else if(args[0] === 'help') {
     argvHandlers.helpHandler();
 }
 else {
-    argvHandlers.errorHandler();
+    argvHandlers.errorHandler(args[0]);
 }
