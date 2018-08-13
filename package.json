@@ -1,6 +1,6 @@
 {
   "name": "fdev-cli",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "The CLI for Default project",
   "main": "cli.js",
   "bin": {
