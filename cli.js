@@ -3,14 +3,16 @@
 // import argv handlers
 const argvHandlers = require('./lib/argv-handlers');
 
-if(process.argv.slice(2)[0] === '-v') {
+const [, , ...args] = process.argv;
+
+if(args[0] === '-v') {
     argvHandlers.versionhandler();
 }
 
-else if(process.argv.slice(2)[0] === 'generate' || process.argv.slice(2)[0] === 'g') {
-    argvHandlers.generateHandler(process.argv.slice(2)[1], process.argv.slice(2)[2]);
+else if(args[0] === 'generate' || args[0] === 'g') {
+    argvHandlers.generateHandler(args[1], args[2]);
 }
-else if(process.argv.slice(2)[0] === 'help') {
+else if(args[0] === 'help') {
     argvHandlers.helpHandler();
 }
 else {
