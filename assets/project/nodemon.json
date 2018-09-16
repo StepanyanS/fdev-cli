@@ -1,0 +1,6 @@
+{
+  "verbose": false,
+  "watch": ["./src/pages/pages.js", "./config", "./server"],
+  "ext": "js",
+  "exec": "node ./server/index.js"
+}
