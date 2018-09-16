@@ -85,7 +85,7 @@ class GenerateHandler implements IHandler {
         }
     }
 
-    handle(generateType: string, generateFile: string): void {
+    public handle(generateType: string, generateFile: string): void {
         if(generateType === 'component' || generateType === 'c') {
             this.generateComponent(generateFile);
         }

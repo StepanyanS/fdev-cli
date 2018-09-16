@@ -12,7 +12,7 @@ if(args[0] === 'version' || args[0] === '-v') {
     versionHandler.handle();
 }
 else if(args[0] === 'new') {
-    newHandler.handle(args[1]);
+    newHandler.handle(args[1], args[2]);
 }
 else if(args[0] === 'generate' || args[0] === 'g') {
     generateHandler.handle(args[1], args[2]);

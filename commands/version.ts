@@ -4,7 +4,7 @@ import { textSync } from 'figlet';
 import { IHandler } from './../models/handler.d';
 
 class VersionHandler implements IHandler {
-    handle(): void {
+    public handle(): void {
         console.log(
             chalk.blue(
                 textSync(

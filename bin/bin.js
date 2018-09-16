@@ -11,7 +11,7 @@ if (args[0] === 'version' || args[0] === '-v') {
     version_1.versionHandler.handle();
 }
 else if (args[0] === 'new') {
-    new_1.newHandler.handle(args[1]);
+    new_1.newHandler.handle(args[1], args[2]);
 }
 else if (args[0] === 'generate' || args[0] === 'g') {
     generate_1.generateHandler.handle(args[1], args[2]);

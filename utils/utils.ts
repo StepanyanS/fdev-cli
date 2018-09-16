@@ -1,18 +1,18 @@
-import { statSync } from "fs";
+import { statSync } from 'fs';
 
 export function fileExists (filename: string): boolean {
     try {
-      return statSync(filename).isFile();
+        return statSync(filename).isFile();
     } catch (err) {
-      return false;
+        return false;
     }
 }
 
 export function dirExists (dirname: string): boolean {
     try {
-      return statSync(dirname).isDirectory();
+        return statSync(dirname).isDirectory();
     } catch (err) {
-      return false;
+        return false;
     }
 }
 
