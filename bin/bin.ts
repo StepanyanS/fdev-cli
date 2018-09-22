@@ -10,16 +10,19 @@ import { undefinedHandler } from './../commands/undefined.handler';
 const [, , ...args]: string[] = process.argv;
 
 switch(args[0]) {
-    case 'version' || '-v':
+    case 'version':
+    case '-v':
         versionHandler.handle();
         break;
     case 'new':
         newHandler.handle(args[1], args[2]);
         break;
-    case 'generate' || 'g':
+    case 'generate':
+    case 'g':
         generateHandler.handle(args[1], args[2]);
         break;
-    case 'help' || '-h':
+    case 'help':
+    case '-h':
         helpHandler.handle();
         break;
     case undefined:
