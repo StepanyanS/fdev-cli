@@ -2,7 +2,7 @@ import chalk from 'chalk';
 import { readFileSync, writeFileSync } from 'fs';
 
 import { fileExists } from '../utils/utils';
-import { IHandler } from './../models/handler.d';
+import { IHandler } from '../models/handler';
 
 class GenerateHandler implements IHandler {
 
