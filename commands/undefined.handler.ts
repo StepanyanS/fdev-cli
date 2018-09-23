@@ -4,7 +4,7 @@ import chalk from 'chalk';
 class UndefinedHandler implements IHandler {
 
     public handle(): void {
-        console.log(chalk.red(`You must specify command. For a list of available commands, run "fdev help" or "fdev -h".`));
+        console.log(chalk.red(`You must specify command. For a list of available commands run "fdev help" or "fdev -h".`));
         process.exit();
     }
 }

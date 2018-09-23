@@ -1,33 +1,38 @@
 #!/usr/bin/env node
 
-import { versionHandler } from './../commands/version.handler';
-import { helpHandler } from './../commands/help.handler';
-import { errorHandler } from '../commands/error.handler';
-import { generateHandler } from '../commands/generate.handler';
-import { newHandler } from './../commands/new.handler';
-import { undefinedHandler } from './../commands/undefined.handler';
-
 const [, , ...args]: string[] = process.argv;
 
 switch(args[0]) {
     case 'version':
     case '-v':
-        versionHandler.handle();
+        import('../commands/version.handler').then(m => {
+            m.versionHandler.handle();
+        });
         break;
     case 'new':
-        newHandler.handle(args[1], args[2]);
+        import('../commands/new.handler').then(m => {
+            m.newHandler.handle(args[1], args[2]);
+        });
         break;
     case 'generate':
     case 'g':
-        generateHandler.handle(args[1], args[2]);
+        import('../commands/generate.handler').then(m => {
+            m.generateHandler.handle(args[1], args[2]);
+        });
         break;
     case 'help':
     case '-h':
-        helpHandler.handle();
+        import('../commands/help.handler').then(m => {
+            m.helpHandler.handle();
+        });
         break;
     case undefined:
-        undefinedHandler.handle();
+        import('../commands/undefined.handler').then(m => {
+            m.undefinedHandler.handle();
+        });
         break;
     default:
-        errorHandler.handle(args[0]);
+        import('../commands/error.handler').then(m => {
+            m.errorHandler.handle(args[0]);
+        });
 }
