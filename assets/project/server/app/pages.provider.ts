@@ -1,27 +1,15 @@
-// import "fs(file system)" module
-import fs from 'fs';
+import pages from '../../src/pages/pages';
+import { resolve } from 'path';
+import { writeFileSync } from 'fs';
 
-// import pages array from pages file
-import pages from '../src/pages/pages.js';
+export class PagesProvider {
 
-// import "path" plugin
-import path from 'path';
+    // define pages module file path
+    private pagesModulePath = resolve(__dirname, '../../client/pagesModule.js');
+    // define pages path
+    private pagesPath = '../src/pages/';
 
-export default class RequirePages {
-    constructor() {
-        this.init();
-        this.writeFile();
-    }
-
-    init() {
-        // define pages module file path
-        this.pagesModule = path.resolve(__dirname, '../client/pagesModule.js');
-
-        // define pages path
-        this.pagesPath = '../src/pages/';
-    }
-
-    getRequireCode() {
+    private getRequireCode(): { requireStr: string, consoleStr: string } {
 
         // define string for require in pages module
         let requireStr = `require('../src/index.html');\n`;
@@ -47,15 +35,16 @@ export default class RequirePages {
         }
     }
 
-    writeFile() {
+    private writeFile(): void {
 
         let { requireStr, consoleStr } = this.getRequireCode();
 
         // write html's requires in the module.js
-        fs.writeFile(this.pagesModule, requireStr, function(error) {
-            if(error) throw new Error(error);
-        });
+        writeFileSync(this.pagesModulePath, requireStr);
+        // console.log(consoleStr);
+    }
 
-        console.log(consoleStr);
+    provide(): void {
+        this.writeFile();
     }
 }

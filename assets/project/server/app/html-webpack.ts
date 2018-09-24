@@ -1,15 +1,11 @@
-// import "html-webpack-plugin" plugin
-import HtmlWebpackPlugin from 'html-webpack-plugin';
+import * as HtmlWebpackPlugin from 'html-webpack-plugin';
+import pages from '../../src/pages/pages';
+import { IWebpackConfig } from '../../config/webpack.config';
 
-// import pages array from pages file
-import pages from '../src/pages/pages.js';
+export class HtmlWebpack {
+    constructor(private config: IWebpackConfig) {}
 
-export default class HtmlWebpack {
-    constructor(config) {
-        this.config = config;
-    }
-
-    include() {
+    include(): void {
 
         // add index page in webpack config plugins array
         this.config.plugins.push(new HtmlWebpackPlugin({

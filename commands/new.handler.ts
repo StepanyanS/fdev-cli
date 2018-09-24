@@ -41,6 +41,10 @@ class NewHandler implements IHandler {
             this.generateProject(projectName);
         }
         else {
+            if(!projectName) {
+                console.log(chalk.red(`You must specify project name`));
+                process.exit();
+            }
             this.generateProject(projectName, true);
         }
         process.exit();

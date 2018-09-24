@@ -1,41 +1,34 @@
-// import "webpack"
-import webpack from 'webpack';
+import * as webpack from 'webpack';
+import * as CleanWebpackPlugin from 'clean-webpack-plugin';
+import * as MiniCssExtractPlugin from 'mini-css-extract-plugin';
+// import OptimizeCssAssetsWebpackPlugin from 'optimize-css-assets-webpack-plugin';
+import * as UglifyJsPlugin from 'uglifyjs-webpack-plugin';
+import * as CompressionPlugin from 'compression-webpack-plugin';
+import { resolve } from 'path';
+import { Configuration as DevServerConfiguration } from 'webpack-dev-server';
 
-// import "path" plugin
-import path from 'path';
-
-// import "clean-webpack-plugin" plugin
-import CleanWebpackPlugin from 'clean-webpack-plugin';
-
-// import "mini-css-extract-plugin" plugin
-import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-
-// import "optimize-css-assets-webpack-plugin" plugin
-import OptimizeCssAssetsWebpackPlugin from 'optimize-css-assets-webpack-plugin';
-
-// import "uglifyjs-webpack-plugin" plugin
-import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
-
-// import "compression-webpack-plugin" plugin
-import CompressionPlugin from 'compression-webpack-plugin';
+export interface IWebpackConfig extends webpack.Configuration {
+    devServer: DevServerConfiguration
+}
 
 // webpack config
-module.exports = env => {
+export default function (env: any): IWebpackConfig  {
 
     // define development mode
-    const devMode = env.production === 'false' ? true : false;
+    const devMode = env.production === false ? true : false;
 
     return {
+
         // compile mode (development || production)
         mode: devMode ? 'development' : 'production',
     
         // index.html and assets directory
-        context: path.resolve(__dirname, '../src'),
+        context: resolve(__dirname, '../src'),
 
         // entry modules
         entry: devMode ? {
             polyfills: ['@webcomponents/custom-elements',  'eventsource-polyfill'], // import "Custom elements" polyfill for browsers that don't support natively and "eventsource-polyfill" for hot reloading in IE & Edge
-            hotModules: ['./main.js', 'babel-runtime/regenerator', 'webpack-hot-middleware/client?reload=true', '../client/pagesModule.js'] // import main.js and plugins for hot reloading in development
+            hotModules: ['./main.js', 'webpack-hot-middleware/client?reload=true', '../client/pagesModule.js'] // import main.js and plugins for hot reloading in development
         } : {
             polyfills: '@webcomponents/custom-elements',
             main: './main.js'
@@ -43,7 +36,7 @@ module.exports = env => {
 
         // output directory
         output: {
-            path: path.resolve(__dirname, '../dist'),
+            path: resolve(__dirname, '../dist'),
             filename: './assets/js/[name].js'
         },
 
@@ -65,7 +58,7 @@ module.exports = env => {
                     test: /(sa|sc|c)ss$/,
                     use: [
                         {
-                            loader: devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
+                            loader: devMode ? 'style-loader' : MiniCssExtractPlugin.loader as string,
                             options: !devMode ? {
                                 publicPath: '../../'
                             } : 
@@ -91,7 +84,7 @@ module.exports = env => {
                             }
                         }
                     ],
-                    exclude: /node_modules/                
+                    exclude: /node_modules/
                 },
 
                 // loader for images (png, jpg, gif)
@@ -179,6 +172,8 @@ module.exports = env => {
 
         // plugins
         plugins: [
+            new webpack.ProgressPlugin(),
+
             // plugin for defining global variables
             new webpack.DefinePlugin({
                 devMode
@@ -188,7 +183,8 @@ module.exports = env => {
             new CleanWebpackPlugin(
                 ['dist'],
                 {
-                    root: path.resolve(__dirname, '../')
+                    root: resolve(__dirname, '../'),
+                    verbose:  false,
                 }
             )
         ].concat(devMode ? [
@@ -210,13 +206,20 @@ module.exports = env => {
         // dev-server config
         devServer: {
             port: 9000,
-            contentBase: path.resolve(__dirname, '../dist'),
+            contentBase: resolve(__dirname, '../dist'),
             publicPath: '/',
             host: '0.0.0.0',
             overlay: true,
             stats: {
-                colors: true
+                colors: true,
+                assets: false,
+                modules: false,
+                entrypoints: false,
+                builtAt: false,
+                version: false,
+                hash: false
             }
+            // stats: 'errors-only'
         },
 
         optimization: {

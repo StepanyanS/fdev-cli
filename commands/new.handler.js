@@ -40,6 +40,10 @@ var NewHandler = /** @class */ (function () {
             this.generateProject(projectName);
         }
         else {
+            if (!projectName) {
+                console.log(chalk_1.default.red("You must specify project name"));
+                process.exit();
+            }
             this.generateProject(projectName, true);
         }
         process.exit();

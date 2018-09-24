@@ -87,13 +87,19 @@ class GenerateHandler implements IHandler {
 
     public handle(generateType: string, generateFile: string): void {
         if(generateType === 'component' || generateType === 'c') {
+            if(!generateFile) {
+                console.log(chalk.red(`You must specify component name`));
+                process.exit();
+            }
             this.generateComponent(generateFile);
         }
-        
         else if(generateType === 'page' || generateType === 'p') {
+            if(!generateFile) {
+                console.log(chalk.red(`You must specify page name`));
+                process.exit();
+            }
             this.generatePage(generateFile);
         }
-    
         else {
             console.log(chalk.red(`"${generateType}" isn't a schematic for "generate" command. For a list of available options, run "fdev help".`));
         }

@@ -68,9 +68,17 @@ var GenerateHandler = /** @class */ (function () {
     };
     GenerateHandler.prototype.handle = function (generateType, generateFile) {
         if (generateType === 'component' || generateType === 'c') {
+            if (!generateFile) {
+                console.log(chalk_1.default.red("You must specify component name"));
+                process.exit();
+            }
             this.generateComponent(generateFile);
         }
         else if (generateType === 'page' || generateType === 'p') {
+            if (!generateFile) {
+                console.log(chalk_1.default.red("You must specify page name"));
+                process.exit();
+            }
             this.generatePage(generateFile);
         }
         else {

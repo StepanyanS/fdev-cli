@@ -1,38 +1,35 @@
-// import "fs(file system)" module
-import fs from 'fs';
+import { resolve } from 'path';
+import { writeFileSync, readFileSync } from 'fs';
+import { watch } from 'chokidar';
 
-// import "path" plugin
-import path from 'path';
+export class ComponentsProvider {
+    // define components file path
+    componentsFile = resolve(__dirname, '../../src/components/components.ts');
 
-// define components file path
-const componentsFile = path.resolve(__dirname, '../src/components/components.js');
+    // define components module file path
+    componentsModulePath = resolve(__dirname, '../../client/componentsModule.js');
 
-// define generated components file path
-const generatedComponentsFile = path.resolve(__dirname, '../client/components.js');
+    // define components path
+    componentsPath = '../src/components/';
 
-export default class RequireComponents {
-    constructor() {
-        this.init();
-        this.writeFile();
+    // import components
+    components: string[];
+
+    // define generated components file path
+    generatedComponentsFile = resolve(__dirname, '../../client/components.js');
+
+    private getModuleData(moduleFile: string): string[] {
+        let data = readFileSync(moduleFile, { encoding: 'utf-8' }).replace(/(\r\n|\n|\r|\s)/gm,"");
+        return data.slice(data.indexOf('[') + 1, data.indexOf(']')).split('\'').filter((item) => {
+            return item !== ',' && item !== '' && item !== '//' && item !== ',//'
+        });
     }
 
-    init() {
-        // define components module file path
-        this.componentsModule = path.resolve(__dirname, '../client/componentsModule.js');
-
-        // define components path
-        this.componentsPath = '../src/components/';
-
-        // // import components
-        // this.components = components;
-        this.components = require('../src/components/components.js');
-    }
-
-    capitalize(str) {
+    private capitalize(str: string): string {
         return str.charAt(0).toUpperCase() + str.slice(1);
     }
 
-    generateComponentName(component) {
+    private generateComponentName(component: string): string {
         let componentName = component.split('-').reduce((x, y, i) => {
             if(i > 0) return x + this.capitalize(y);
         });
@@ -42,7 +39,9 @@ export default class RequireComponents {
         return componentName;
     }
 
-    getRequireCode() {
+    private getRequireCode(): { requireStr: string, writeCode: string, consoleStr: string } {
+
+        this.components = this.getModuleData(this.componentsFile);
 
         // define string for require in components module
         let requireStr = '';
@@ -75,7 +74,6 @@ export default class RequireComponents {
             consoleStr  = consoleStr.slice(0, -2) + `) imported\n`;
         }
 
-
         return {
             requireStr,
             writeCode,
@@ -83,22 +81,20 @@ export default class RequireComponents {
         }
     }
 
-    writeFile() {
+    private writeFile(): void {
         let { requireStr, writeCode, consoleStr } = this.getRequireCode();
 
         // write require string in the components module
-        fs.writeFile(this.componentsModule, requireStr, function(error) {
-            if(error) throw new Error(error);
-        });
+        writeFileSync(this.componentsModulePath, requireStr)
 
         // write code in the client/components.js
-        fs.writeFile(generatedComponentsFile, writeCode, function(error) {
-            if(error) throw new Error(error);
-        });
+        writeFileSync(this.generatedComponentsFile, writeCode);
 
-        console.log(consoleStr);
+        // console.log(consoleStr);
+    }
 
-        // delete require cache to refresh components array
-        delete require.cache[componentsFile];
+    public provide(): void {
+        this.writeFile();
+        watch(this.componentsFile, { usePolling: true }).on('change', this.writeFile.bind(this));
     }
 }

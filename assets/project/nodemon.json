@@ -1,6 +1,6 @@
 {
   "verbose": false,
   "watch": ["./src/pages/pages.js", "./config", "./server"],
-  "ext": "js",
-  "exec": "node ./server/index.js"
+  "ext": "ts",
+  "exec": "./node_modules/.bin/ts-node ./server/main.ts"
 }
