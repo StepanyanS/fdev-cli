@@ -2,7 +2,7 @@ import chalk from 'chalk';
 import { readFileSync, writeFileSync } from 'fs';
 
 import { fileExists } from '../utils/utils';
-import { IHandler } from './../models/handler.d';
+import { IHandler } from '../models/handler';
 
 class GenerateHandler implements IHandler {
 
@@ -34,12 +34,12 @@ class GenerateHandler implements IHandler {
 
     private updateProvider(type: string, file: string): void {
         if(type === 'component') {
-            const moduleFile = 'components/components.js';
+            const moduleFile = 'components/components.ts';
             const moduleData = ['const components = [\n', '\n];\n\nmodule.exports = components;'];
             this.writeData(moduleFile, moduleData, file);
         }
         else if(type === 'page') {
-            const moduleFile = 'pages/pages.js';
+            const moduleFile = 'pages/pages.ts';
             const moduleData = ['const pages = [\n', '\n];\n\nexport default pages;'];
             this.writeData(moduleFile, moduleData, file);
         }
@@ -55,7 +55,7 @@ class GenerateHandler implements IHandler {
             writeFileSync(`components/${component}.component.html`, writeData, {encoding: 'utf-8'})
             this.updateProvider('component', component);
             console.log(chalk.green('Create'), `components/${component}.html`);
-            console.log(chalk.blue('Update'), 'components/components.js');
+            console.log(chalk.blue('Update'), 'components/components.ts');
         }
     }
 

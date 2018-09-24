@@ -1,6 +1,6 @@
 import chalk from 'chalk';
 
-import { IHandler } from './../models/handler.d';
+import { IHandler } from '../models/handler';
 
 class HelpHandler implements IHandler {
     public handle(): void {

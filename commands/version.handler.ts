@@ -1,7 +1,7 @@
 import chalk from 'chalk';
 import { textSync } from 'figlet';
 
-import { IHandler } from './../models/handler.d';
+import { IHandler } from '../models/handler';
 
 class VersionHandler implements IHandler {
     public handle(): void {

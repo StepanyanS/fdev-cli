@@ -19,6 +19,12 @@ fdev -v
 fdev help
 ```
 
+### Generating new project
+You can use the `fdev new` command to generate new project:
+```bash
+fdev new PROJECT-NAME
+```
+
 ### Generating Components, Pages
 
 You can use the `fdev generate` (or just `fdev g`) command to generate components/pages:

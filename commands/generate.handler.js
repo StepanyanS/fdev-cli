@@ -31,12 +31,12 @@ var GenerateHandler = /** @class */ (function () {
     };
     GenerateHandler.prototype.updateProvider = function (type, file) {
         if (type === 'component') {
-            var moduleFile = 'components/components.js';
+            var moduleFile = 'components/components.ts';
             var moduleData = ['const components = [\n', '\n];\n\nmodule.exports = components;'];
             this.writeData(moduleFile, moduleData, file);
         }
         else if (type === 'page') {
-            var moduleFile = 'pages/pages.js';
+            var moduleFile = 'pages/pages.ts';
             var moduleData = ['const pages = [\n', '\n];\n\nexport default pages;'];
             this.writeData(moduleFile, moduleData, file);
         }
@@ -51,7 +51,7 @@ var GenerateHandler = /** @class */ (function () {
             fs_1.writeFileSync("components/" + component + ".component.html", writeData, { encoding: 'utf-8' });
             this.updateProvider('component', component);
             console.log(chalk_1.default.green('Create'), "components/" + component + ".html");
-            console.log(chalk_1.default.blue('Update'), 'components/components.js');
+            console.log(chalk_1.default.blue('Update'), 'components/components.ts');
         }
     };
     GenerateHandler.prototype.generatePage = function (page) {

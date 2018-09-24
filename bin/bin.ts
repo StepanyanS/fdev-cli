@@ -2,28 +2,37 @@
 
 const [, , ...args]: string[] = process.argv;
 
-if(args[0] === 'version' || args[0] === '-v') {
-    import('../commands/version').then(m => {
-        m.versionHandler.handle();
-    });
-}
-else if(args[0] === 'new') {
-    import('../commands/new').then(m => {
-        m.newHandler.handle(args[1], args[2]);
-    })
-}
-else if(args[0] === 'generate' || args[0] === 'g') {
-    import('../commands/generate').then(m => {
-        m.generateHandler.handle(args[1], args[2]);
-    });
-}
-else if(args[0] === 'help' || args[0] === '-h') {
-    import('../commands/help').then(m => {
-        m.helpHandler.handle();
-    });
-}
-else {
-    import('../commands/error').then(m => {
-        m.errorHandler.handle(args[0]);
-    });
+switch(args[0]) {
+    case 'version':
+    case '-v':
+        import('../commands/version.handler').then(m => {
+            m.versionHandler.handle();
+        });
+        break;
+    case 'new':
+        import('../commands/new.handler').then(m => {
+            m.newHandler.handle(args[1], args[2]);
+        });
+        break;
+    case 'generate':
+    case 'g':
+        import('../commands/generate.handler').then(m => {
+            m.generateHandler.handle(args[1], args[2]);
+        });
+        break;
+    case 'help':
+    case '-h':
+        import('../commands/help.handler').then(m => {
+            m.helpHandler.handle();
+        });
+        break;
+    case undefined:
+        import('../commands/undefined.handler').then(m => {
+            m.undefinedHandler.handle();
+        });
+        break;
+    default:
+        import('../commands/error.handler').then(m => {
+            m.errorHandler.handle(args[0]);
+        });
 }
