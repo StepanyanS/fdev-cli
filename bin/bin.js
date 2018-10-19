@@ -8,6 +8,7 @@ switch (args[0]) {
         });
         break;
     case 'new':
+    case 'n':
         Promise.resolve().then(function () { return require('../commands/new.handler'); }).then(function (m) {
             m.newHandler.handle(args[1], args[2]);
         });
@@ -16,6 +17,12 @@ switch (args[0]) {
     case 'g':
         Promise.resolve().then(function () { return require('../commands/generate.handler'); }).then(function (m) {
             m.generateHandler.handle(args[1], args[2]);
+        });
+        break;
+    case 'integrate':
+    case 'i':
+        Promise.resolve().then(function () { return require('../commands/integrate.handler'); }).then(function (m) {
+            m.integrateHandler.handle(args[1]);
         });
         break;
     case 'help':

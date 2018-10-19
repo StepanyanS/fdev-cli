@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 var chalk_1 = require("chalk");
 var fs_1 = require("fs");
 var utils_1 = require("../utils/utils");
@@ -43,46 +43,46 @@ var GenerateHandler = /** @class */ (function () {
     };
     GenerateHandler.prototype.generateComponent = function (component) {
         if (utils_1.fileExists("components/" + component + ".component.html")) {
-            console.log(chalk_1.default.red("Component \"" + component + "\" is already exist."));
+            console.log(chalk_1["default"].red("Component \"" + component + "\" is already exist."));
             process.exit();
         }
         else {
             var writeData = "<p>" + this.capitalize(component) + " works!</p>";
             fs_1.writeFileSync("components/" + component + ".component.html", writeData, { encoding: 'utf-8' });
             this.updateProvider('component', component);
-            console.log(chalk_1.default.green('Create'), "components/" + component + ".html");
-            console.log(chalk_1.default.blue('Update'), 'components/components.ts');
+            console.log(chalk_1["default"].green('Create'), "components/" + component + ".html");
+            console.log(chalk_1["default"].blue('Update'), 'components/components.ts');
         }
     };
     GenerateHandler.prototype.generatePage = function (page) {
         if (utils_1.fileExists("pages/" + page + ".html")) {
-            console.log(chalk_1.default.red("Page \"" + page + "\" is already exist."));
+            console.log(chalk_1["default"].red("Page \"" + page + "\" is already exist."));
         }
         else {
             var writeData = "<!DOCTYPE html>\n    <html>\n    <head>\n        <meta charset=\"UTF-8\">\n        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n        <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\n        <title>" + this.capitalize(page) + "</title>\n    </head>\n    <body>\n    \n        <h1>" + this.capitalize(page) + " works!</h1>\n        \n    </body>\n    </html>";
             fs_1.writeFileSync("pages/" + page + ".html", writeData, { encoding: 'utf-8' });
             this.updateProvider('page', page);
-            console.log(chalk_1.default.green('Create'), "pages/" + page + ".html");
-            console.log(chalk_1.default.blue('Update'), 'pages/pages.js');
+            console.log(chalk_1["default"].green('Create'), "pages/" + page + ".html");
+            console.log(chalk_1["default"].blue('Update'), 'pages/pages.js');
         }
     };
     GenerateHandler.prototype.handle = function (generateType, generateFile) {
         if (generateType === 'component' || generateType === 'c') {
             if (!generateFile) {
-                console.log(chalk_1.default.red("You must specify component name"));
+                console.log(chalk_1["default"].red("You must specify component name"));
                 process.exit();
             }
             this.generateComponent(generateFile);
         }
         else if (generateType === 'page' || generateType === 'p') {
             if (!generateFile) {
-                console.log(chalk_1.default.red("You must specify page name"));
+                console.log(chalk_1["default"].red("You must specify page name"));
                 process.exit();
             }
             this.generatePage(generateFile);
         }
         else {
-            console.log(chalk_1.default.red("\"" + generateType + "\" isn't a schematic for \"generate\" command. For a list of available options, run \"fdev help\"."));
+            console.log(chalk_1["default"].red("\"" + generateType + "\" isn't a schematic for \"generate\" command. For a list of available options, run \"fdev help\"."));
         }
         process.exit();
     };

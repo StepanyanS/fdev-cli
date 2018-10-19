@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 var path_1 = require("path");
 var PROJECT_CONFIG;
 (function (PROJECT_CONFIG) {

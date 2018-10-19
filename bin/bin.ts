@@ -10,6 +10,7 @@ switch(args[0]) {
         });
         break;
     case 'new':
+    case 'n':
         import('../commands/new.handler').then(m => {
             m.newHandler.handle(args[1], args[2]);
         });
@@ -18,6 +19,12 @@ switch(args[0]) {
     case 'g':
         import('../commands/generate.handler').then(m => {
             m.generateHandler.handle(args[1], args[2]);
+        });
+        break;
+    case 'integrate':
+    case 'i':
+        import ('../commands/integrate.handler').then(m => {
+            m.integrateHandler.handle(args[1]);
         });
         break;
     case 'help':

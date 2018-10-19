@@ -22,13 +22,14 @@
   "dependencies": {
     "chalk": "^2.4.1",
     "figlet": "^1.2.0",
-    "fs-extra": "^7.0.0"
+    "fs-extra": "^7.0.0",
+    "unzip": "^0.1.11"
   },
   "devDependencies": {
-    "@types/chalk": "^2.2.0",
     "@types/figlet": "^1.2.0",
     "@types/fs-extra": "^5.0.4",
     "@types/node": "^10.5.8",
+    "@types/unzip": "^0.1.1",
     "ts-node": "^7.0.1",
     "typescript": "^3.0.1"
   }
