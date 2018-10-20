@@ -23,8 +23,9 @@ class IntegrateHandler implements IHandler {
     }
 
     private getStylesData(data: Buffer): string {
-        const stylesString = data.toString('utf-8');
-        return stylesString.slice(stylesString.indexOf('[class'));
+        let stylesString = data.toString('utf-8');
+        return '@import "./variables";\n\n' + stylesString.slice(stylesString.indexOf('[class'))
+                .replace("font-family: '#{$icomoon-font-family}' !important;", "font-family: $font-icons !important;");
     } 
 
     public handle(projectName: string): void {

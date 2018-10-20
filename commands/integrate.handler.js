@@ -21,7 +21,8 @@ var IntegrateHandler = /** @class */ (function () {
     };
     IntegrateHandler.prototype.getStylesData = function (data) {
         var stylesString = data.toString('utf-8');
-        return stylesString.slice(stylesString.indexOf('[class'));
+        return '@import "./variables";\n\n' + stylesString.slice(stylesString.indexOf('[class'))
+            .replace("font-family: '#{$icomoon-font-family}' !important;", "font-family: $font-icons !important;");
     };
     IntegrateHandler.prototype.handle = function (projectName) {
         var _this = this;
